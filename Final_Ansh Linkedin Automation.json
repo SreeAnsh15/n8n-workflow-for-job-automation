@@ -1,0 +1,597 @@
+{
+  "name": "Ansh Linkedin Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2608,
+        -1800
+      ],
+      "id": "fc096f7f-65de-4007-8523-57e81f87b439",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": ".base-search-card__title",
+              "returnArray": true
+            },
+            {
+              "key": "company",
+              "cssSelector": ".base-search-card__subtitle",
+              "returnArray": true
+            },
+            {
+              "key": "location",
+              "cssSelector": ".job-search-card__location",
+              "returnArray": true
+            },
+            {
+              "key": "link",
+              "cssSelector": "a.base-card__full-link",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        -2160,
+        -1800
+      ],
+      "id": "45976da7-36a3-4915-a955-30c7dec57f21",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "url": "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=software%20intern&location=India",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2384,
+        -1800
+      ],
+      "id": "3eaaf768-b47f-4ca2-8bf8-a9d6fe5f56bf",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY",
+          "mode": "list",
+          "cachedResultName": "n8n workflow Ansh",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Main View",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{$json.title}}",
+            "Company": "={{$json.company}}",
+            "Location": "={{$json.location}}",
+            "Link": "={{$json.link}}",
+            "Fetched At": "={{$json.fetchedAt}}",
+            "Category": "={{$json.category}}",
+            "AI Score": "={{$json.score}}",
+            "Summary": "={{$json.summary}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AI Score",
+              "displayName": "AI Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fetched At",
+              "displayName": "Fetched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        -1800
+      ],
+      "id": "8e9009fc-9e05-4ba2-94d9-923a67a8a8cf",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "aQSYlqdsYuzYcgRY",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY",
+          "mode": "list",
+          "cachedResultName": "n8n workflow Ansh",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Main View",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1k6PcHKp6yk3-IWaHhzs-h4I9YkgWP5ZwMgBZwblRWGY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -240,
+        -1800
+      ],
+      "id": "608d42ba-faef-42fc-b2f2-ac08ff4fff7a",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "aQSYlqdsYuzYcgRY",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const titles = $json.title;\nconst companies = $json.company;\nconst locations = $json.location;\nconst links = $json.link;\n\nlet result = [];\n\nfor (let i = 0; i < titles.length; i++) {\n\n  // Clean company name (remove LinkedIn URL part)\n  const cleanCompany = companies[i].split(\"\\n\")[0];\n\n  result.push({\n    json: {\n      title: titles[i] ? titles[i].trim() : \"\",\n      company: cleanCompany ? cleanCompany.trim() : \"\",\n      location: locations[i] ? locations[i].trim() : \"\",\n      link: links[i] ? links[i] : \"\",\n      fetchedAt: new Date().toLocaleString(\"en-IN\", {\n  timeZone: \"Asia/Kolkata\",\n  day: \"2-digit\",\n  month: \"short\",\n  year: \"numeric\",\n  hour: \"2-digit\",\n  minute: \"2-digit\",\n  hour12: true\n})\n    }\n  });\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1936,
+        -1800
+      ],
+      "id": "c5ddca8c-2f88-4b23-922a-030944f983b4",
+      "name": "scraper"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Loop through every job found by the scraper\nreturn $input.all().map(item => {\n  let rawUrl = item.json.link;\n\n  if (rawUrl) {\n    // Remove query parameters (everything after ?) and fragments (#)\n    // Also remove trailing slashes so the links are identical\n    let cleanUrl = rawUrl.split(/[?#]/)[0].replace(/\\/$/, \"\").trim();\n    \n    // Update the link with the clean version\n    item.json.link = cleanUrl;\n  }\n  \n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1712,
+        -1800
+      ],
+      "id": "30bc03d4-d9a0-4605-9b2e-e8b52a5d4ce7",
+      "name": "URL Cleaner"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get ALL cleaned jobs from the URL Cleaner node\n// Note: Replace \"URL Cleaner\" with the actual name of your Step 1 node\nconst newJobs = $items(\"URL Cleaner\").map(item => item.json);\n\n// 2. Get ALL existing rows from the Google Sheets node\nconst existingRows = $items(\"Get row(s) in sheet\").map(item => item.json);\n\n// 3. Create a Set of existing links from the sheet for fast lookup\n// We use .trim() here too just in case the sheet has manual entries\nconst existingLinks = new Set(\n  existingRows\n    .filter(row => row.Link) \n    .map(row => row.Link.toString().trim())\n);\n\n// 4. Filter: Only keep jobs that DON'T exist in the Set\nconst uniqueJobs = newJobs.filter(job => {\n  if (!job.link) return false;\n  return !existingLinks.has(job.link);\n});\n\n// 5. Return the final list of new jobs to be appended\nreturn uniqueJobs.map(job => ({ json: job }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        -1800
+      ],
+      "id": "d7d75704-61cf-4607-b41b-d95e512e2a26",
+      "name": "Duplicate Filter"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Analyze the following internships.\n\nInternships:\n{{$json}}\n\nFor each internship return JSON in this format:\n\n[\n{\n\"Title\": \"...\",\n\"Category\": \"Top Tier | Good | Average | Skip\",\n\"AI Score\": number 1-10,\n\"Summary\": \"short explanation\"\n}\n]\n\nRespond ONLY with JSON."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -1488,
+        -1800
+      ],
+      "id": "4eab3284-7288-4773-b6d9-322a81c4b216",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "mH591XWeHgql6RYH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2608,
+        -2096
+      ],
+      "id": "fe9951bb-fd47-462b-815b-ef544f419c59",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -2384,
+        -2096
+      ],
+      "id": "ed24bc59-828c-4f01-83be-6a6c9a22610d",
+      "name": "Wait",
+      "webhookId": "83cf9ba4-b58f-444d-a607-b8a6901e9640"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b6b5cc96-f760-4cb8-b697-2fd9a89118c2",
+              "leftValue": "={{$json[\"AI Score\"]}}",
+              "rightValue": 8,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -912,
+        -1800
+      ],
+      "id": "0fb21e3f-3d33-466c-ac1c-6aef00cbcdcc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "8446326186",
+        "text": "=🚀 High Quality Internship Found  Title: {{$json.title}} Company: {{$json.company}} Location: {{$json.location}}  ⭐ AI Score: {{$json[\"AI Score\"]}} 🏷 Category: {{$json.Category}}  🧠 Summary: {{$json.Summary}}  🔗 Apply Here: {{$json.link}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -688,
+        -1872
+      ],
+      "id": "d39fb5b5-069e-4a31-9d9f-7001878abece",
+      "name": "Send a text message",
+      "webhookId": "b8004912-cbe6-4dca-af56-7c1fa6df93c9",
+      "alwaysOutputData": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "uAluCr4wiQkKgQRL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -464,
+        -1800
+      ],
+      "id": "6982611e-cc23-4650-a0dd-0656a922de4c",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = JSON.parse(items[0].json.candidates[0].content.parts[0].text);\n\nreturn data.map(job => ({\n  json: job\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        -1800
+      ],
+      "id": "8bc63c56-dba8-482d-ae11-8c42ec84cc8f",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Duplicate Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "scraper": {
+      "main": [
+        [
+          {
+            "node": "URL Cleaner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL Cleaner": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Duplicate Filter": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "e1362a63-4563-42e9-bfd1-7d606c284ac0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b13220d17042d20e6fa5c42433d84bf314d403aad72e00d62fa165a0887e8047"
+  },
+  "id": "8pvx2ZG0K3jv5Ols2bcrx",
+  "tags": []
+}
