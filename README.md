@@ -47,10 +47,6 @@ This system automates discovery, filtering, and evaluation using AI.
 2. Add credentials (Google Sheets, Telegram, Gemini)
 3. Run the workflow
 
----
-
-## 📸 Demo
-(Add screenshots here)
 
 ---
 
