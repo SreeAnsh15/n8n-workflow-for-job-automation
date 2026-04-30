@@ -58,10 +58,3 @@ This system automates discovery, filtering, and evaluation using AI.
 - Includes duplicate filtering logic
 - Uses AI scoring to rank internships
 
-## 📸 Demo
-
-### Workflow
-![Workflow]("C:\Users\SreeAnsh\Documents\My Stuff (made by ansh)\Projects\n8n-job-automation\Screenshots\Screenshot 2026-03-24 224113.png")
-
-### Output (Google Sheets)
-![Sheets]("C:\Users\SreeAnsh\Documents\My Stuff (made by ansh)\Projects\n8n-job-automation\Screenshots\Screenshot 2026-03-24 224312.png")
