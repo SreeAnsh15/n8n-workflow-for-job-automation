@@ -49,6 +49,15 @@ This system automates discovery, filtering, and evaluation using AI.
 
 
 ---
+## 📸 Demo
+
+### 🔄 Workflow (n8n)
+![Workflow](screenshots/workflow.png)
+
+### 📊 Google Sheets Output
+![Sheets](screenshots/sheets.png)
+
+---
 
 ## 🧠 Notes
 - Includes duplicate filtering logic
